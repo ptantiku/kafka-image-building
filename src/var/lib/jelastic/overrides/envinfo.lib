@@ -1,0 +1,8 @@
+case ${COMPUTE_TYPE} in
+kafka)
+        STACK_PATH='/opt/kafka';
+        DATA_OWNER='kafka:kafka';
+        SERVICE='kafka';
+;;
+esac
+

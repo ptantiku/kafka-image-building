@@ -1,0 +1,3 @@
+Cmnd_Alias KAFKA_SERVICE = /sbin/service kafka stop, /sbin/service kafka start, /sbin/service kafka restart
+%ssh-access ALL = NOPASSWD: KAFKA_SERVICE
+
