@@ -14,11 +14,12 @@ Docker build and push operations you can do either localy or in Jelastic Cloud P
 3. Open [WebSSH](https://docs.jelastic.com/web-ssh-client).
 4. Clone this repository:
 ***git clone https://github.com/jelastic/kafka-image-building***
-5. Build image with name of your Docker Hub account:
+5. Change current directory to *kafka-image-building*: ***cd kafka-image-building***
+6. Build image with name of your Docker Hub account:
 ***docker image build -t <dockerhub-account\>/kafka:2.4.1 .***
-6. Push image to Docker Hub 
+7. Push image to Docker Hub 
 ***docker image push <dockerhub-account\>/kafka:2.4.1***
-7. Open [Jelastic Cluster Admin Panel](https://ops-docs.jelastic.com/jca-introduction), add created template **From Docker Hub Repository**
+8. Open [Jelastic Cluster Admin Panel](https://ops-docs.jelastic.com/jca-introduction), add created template **From Docker Hub Repository**
 
 <p align="left"> 
 <img src="images/templates.png" width="778">
