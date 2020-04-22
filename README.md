@@ -7,7 +7,7 @@ Here we use version 2.4.1 of Kafka.
 
 ## Docker Build and Push
 
-Docker build and push operations you can do either localy or in Jelastic PaaS of your Cloud Provider. Let's consider Jelastic PaaS.  
+Docker build and push operations you can do either localy or in Jelastic Cloud Platform of your Hosting Provider. Let's consider Jelastic PaaS.  
 
 1. Sign in your [Jelastic account](https://jelastic.com/blog/docker-engine-automatic-install-swarm-connect/).
 2. Install Docker Engine CE application from the [Marketplace]().
@@ -21,24 +21,31 @@ Docker build and push operations you can do either localy or in Jelastic PaaS of
 7. Open [Jelastic Cluster Admin Panel](https://ops-docs.jelastic.com/jca-introduction), add created template **From Docker Hub Repository**
 
 <p align="left"> 
-<img src="images/templates.png" width="518">
+<img src="images/templates.png" width="778">
 </p>
 and choose required tag as default.  
   
 <p align="left"> 
-<img src="images/templateadd.png" width="517">
+<img src="images/templateadd.png" width="776">
 </p>
+
+Publish new template.
+
+<p align="left"> 
+<img src="images/publish.png" width="784">
+</p>
+
 
 ## Kafka Broker Testing
 
 1. Create new environment with published Kafka 2.4.1.
 
 <p align="left"> 
-<img src="images/kafka-new-env.png" width="647">
+<img src="images/kafka-new-env.png" width="971">
 </p>
 
 2. Open WebSSH on Kafka node and clone this repository:
-***git clone https://github.com/jelastic/kafka-image-building***. 
+***git clone https://github.com/jelastic/kafka-image-building*** 
 3. Change current directory to *kafka-image-building*:
 ***cd kafka-image-building***
 4. Create topic called as *test-topic* with shell script: 
