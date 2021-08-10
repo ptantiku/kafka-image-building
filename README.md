@@ -3,7 +3,7 @@
 # Kafka Custom Image Building to be Published at Jelastic PaaS
 
 With this repository you may build customized docker image of [Apache Kafka Broker](https://kafka.apache.org/) that can be published at any Jelastic PaaS as a custom template.
-Here we use version 2.4.1 of Kafka.
+Here we use version 2.8.0 of Kafka.
 
 ## Docker Build and Push
 
@@ -16,9 +16,9 @@ Docker build and push operations you can do either localy or in Jelastic Cloud P
 ***git clone https://github.com/jelastic/kafka-image-building***
 5. Change current directory to *kafka-image-building*: ***cd kafka-image-building***
 6. Build image with name of your Docker Hub account:
-***docker image build -t <dockerhub-account\>/kafka:2.4.1 .***
+***docker image build -t <dockerhub-account\>/kafka:2.8.0 .***
 7. Push image to Docker Hub 
-***docker image push <dockerhub-account\>/kafka:2.4.1***
+***docker image push <dockerhub-account\>/kafka:2.8.0***
 8. Open [Jelastic Cluster Admin Panel](https://ops-docs.jelastic.com/jca-introduction), add created template **From Docker Hub Repository**
 
 <p align="left"> 
@@ -39,7 +39,7 @@ Publish new template.
 
 ## Kafka Broker Testing
 
-1. Create new environment with published Kafka 2.4.1.
+1. Create new environment with published Kafka 2.8.0.
 
 <p align="left"> 
 <img src="images/kafka-new-env.png" width="971">
