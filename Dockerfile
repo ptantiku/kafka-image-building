@@ -1,7 +1,7 @@
 FROM jelastic/javaengine:zulujdk-11.0.5
 
 ARG STACK_NAME="Kafka"
-ARG STACK_VERSION=2.4.1
+ARG STACK_VERSION=2.8.0
 ARG SCALA_VERSION=2.13
 
 ENV STACK_USER=kafka \
