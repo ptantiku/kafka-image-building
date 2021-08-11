@@ -1,4 +1,4 @@
-FROM jelastic/javaengine:zulujdk-11.0.5
+FROM jelastic/javaengine:zulujdk-11.0.11
 
 ARG STACK_NAME="Kafka"
 ARG STACK_VERSION=2.8.0
