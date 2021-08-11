@@ -1,0 +1,45 @@
+#!/bin/bash
+# Copyright 2021 Jelastic, Inc.
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+# http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+include extendperm;
+
+if [ "x$action" == "xservice" ] ; then
+    ACTIONS_LOG="/tmp/actions$$.log";
+    JEM_CALLS_LOG=/var/log/run.log
+else
+    return 0;
+fi
+
+function doEnable(){
+    JEM_CALLS_LOG=/var/log/jem.log;
+    ExtendPerm;
+    if [ -f "/.jelenv" ]
+    then
+        OLD_IFS=$IFS; IFS="$(printf '\n ')" && IFS="${IFS% }"
+        vars="$(sed -r 's/([^=]+).*/\$\1/g' /.jelenv)"
+        for env in $(cat /.jelenv); do
+            env=$(echo "$env" | envsubst "$vars" )
+            export "$env"
+        done
+        for env in $(cat /.jelenv); do
+            env=$(echo "$env" | envsubst "$vars" )
+            export "$env"
+        done
+        IFS=$OLD_IFS
+    fi
+    systemctl enable ${SERVICE}.service;
+    restartServiceSilent "$SERVICE";
+    writeJSONResponseOut "result=>0" "message=>Service been started with code 0!!";
+}
