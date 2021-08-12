@@ -1,4 +1,4 @@
-FROM jelastic/javaengine:zulujdk-11.0.11
+FROM jelastic/javaengine:zulujdk-11.0.5
 
 ARG STACK_NAME="Kafka"
 ARG STACK_VERSION=2.8.0
@@ -10,6 +10,8 @@ ENV STACK_USER=kafka \
     JAVA_OPTS_CONFFILE="/home/jelastic/conf/variables.conf" \
     JAVA_ARGS="" \
     JELASTIC_EXPOSE=9092
+
+USER root
 
 RUN groupmod -n ${STACK_USER} jvm; usermod -l ${STACK_USER} jvm; \
     cd /opt && curl -O https://downloads.apache.org/kafka/${STACK_VERSION}/kafka_${SCALA_VERSION}-${STACK_VERSION}.tgz && \
@@ -43,4 +45,3 @@ LABEL appUser=${STACK_USER} \
     nodeVersion=${STACK_VERSION} \
     nodeMission=extra \
     sourceUrl="https://raw.githubusercontent.com/jelastic/icons/master/kafka/"
-
