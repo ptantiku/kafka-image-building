@@ -1,8 +1,11 @@
-FROM jelastic/javaengine:zulujdk-11.0.5
+FROM jelastic/javaengine:zulujdk-11.0.13
 
 ARG STACK_NAME="Kafka"
 ARG STACK_VERSION=2.8.0
+# ARG STACK_VERSION=2.8.1
+# ARG STACK_VERSION=3.0.0
 ARG SCALA_VERSION=2.13
+ENV JAVA_VERSION=11.0.13
 
 ENV STACK_USER=kafka \
     STACK_PATH="/opt/kafka" \
@@ -14,7 +17,7 @@ ENV STACK_USER=kafka \
 USER root
 
 RUN groupmod -n ${STACK_USER} jvm; usermod -l ${STACK_USER} jvm; \
-    cd /opt && curl -O https://downloads.apache.org/kafka/${STACK_VERSION}/kafka_${SCALA_VERSION}-${STACK_VERSION}.tgz && \
+    cd /opt && curl -O https://archive.apache.org/dist/kafka/${STACK_VERSION}/kafka_${SCALA_VERSION}-${STACK_VERSION}.tgz && \
     tar -xf kafka_${SCALA_VERSION}-${STACK_VERSION}.tgz && rm -f kafka_${SCALA_VERSION}-${STACK_VERSION}.tgz && \
     mv kafka_${SCALA_VERSION}-${STACK_VERSION} kafka && \
     mkdir -p /opt/kafka/{zookeeper,kafka-logs,logs}; chown -R kafka:kafka /opt/kafka; ln -sfT /opt/kafka/logs /var/log/kafka; \
@@ -32,6 +35,12 @@ RUN groupmod -n ${STACK_USER} jvm; usermod -l ${STACK_USER} jvm; \
 
 ADD src/. /
 
+# update JAVA_VERSION in systemd services & enable the services
+RUN sed -i "s|Environment='JAVA_VERSION=[^']*'|Environment='JAVA_VERSION=${JAVA_VERSION}'|" /etc/systemd/system/zookeeper.service; \
+    sed -i "s|Environment='JAVA_VERSION=[^']*'|Environment='JAVA_VERSION=${JAVA_VERSION}'|" /etc/systemd/system/kafka.service; \
+    ln -s /etc/systemd/system/zookeeper.service /etc/systemd/system/multi-user.target.wants/zookeeper.service; \
+    ln -s /etc/systemd/system/kafka.service /etc/systemd/system/multi-user.target.wants/kafka.service;
+
 EXPOSE 9092
 
 VOLUME /opt/kafka/kafka-logs /opt/kafka/zookeeper
@@ -45,3 +54,7 @@ LABEL appUser=${STACK_USER} \
     nodeVersion=${STACK_VERSION} \
     nodeMission=extra \
     sourceUrl="https://raw.githubusercontent.com/jelastic/icons/master/kafka/"
+
+WORKDIR /opt/kafka
+ENTRYPOINT []
+CMD ["/usr/sbin/init", "-z"]

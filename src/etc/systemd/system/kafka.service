@@ -5,6 +5,7 @@ After=zookeeper.service
 [Service]
 Type=simple
 User=kafka
+Environment='JAVA_VERSION=11.0.3'
 ExecStart=/bin/sh -c '/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties > /opt/kafka/logs/kafka_stdout.log 2>/opt/kafka/logs/kafka_stderr.log'
 ExecStop=/opt/kafka/bin/kafka-server-stop.sh
 Restart=on-abnormal

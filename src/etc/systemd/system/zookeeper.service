@@ -6,6 +6,7 @@ PartOf=kafka.service
 [Service]
 Type=simple
 User=kafka
+Environment='JAVA_VERSION=11.0.3'
 ExecStart=/opt/kafka/bin/zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties
 ExecStop=/opt/kafka/bin/zookeeper-server-stop.sh
 Restart=on-abnormal
